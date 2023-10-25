@@ -2,14 +2,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 const Navbar = () => {
-    const cartCount = useSelector(state => state.cart.length);
+    const itemCount = useSelector((state) => state.itemCount);
 
     return (
-        <nav>
-            <div>Навигационная панель</div>
-            <div>Корзина: {cartCount} товаров</div>
-        </nav>
+        <div>
+            <h3>Навигационная панель</h3>
+            <p>Товаров в корзине: {itemCount}</p>
+        </div>
     );
-}
+};
 
 export default Navbar;
