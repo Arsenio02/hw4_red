@@ -1,25 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from "./shop/navbar.jsx";
-import ProductList from "./shop/ProductList.jsx";
-import productsShop from "./shop/productsShop.json";
+// App.js
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import Navbar from "./components/Navbar.jsx";
+import ProductList from "./components/ProductList.jsx";
+import Cart from "./components/Cart.jsx";
+import cartReducer from './redux/cartSlice';
+import products from './components/products.json';
 
-function App() {
-    const [cartCount, setCartCount] = useState(0);
-    const [products, setProducts] = useState([]);
+const store = configureStore({
+    reducer: {
+        cart: cartReducer
+    }
+});
 
-    useEffect(() => {
-        setProducts(productsShop);
-    }, []);
-
-    const addToCart = (product) => {
-        setCartCount(cartCount + 1);
-    };
-
+const App = () => {
     return (
-        <div className="app">
-            <Navbar cartCount={cartCount} />
-            <ProductList products={products} addToCart={addToCart} />
-        </div>
+        <Provider store={store}>
+            <div>
+                <Navbar />
+                <ProductList products={products.products} />
+                <Cart />
+            </div>
+        </Provider>
     );
 }
 
